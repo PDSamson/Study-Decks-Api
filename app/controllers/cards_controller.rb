@@ -1,9 +1,11 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :update, :destroy]
 
+  before_filter :load_deck
+
   # GET /cards
   def index
-    @cards = Card.all
+    @cards = @deck.cards.all
 
     render json: @cards
   end
@@ -15,7 +17,7 @@ class CardsController < ApplicationController
 
   # POST /cards
   def create
-    @card = Card.new(card_params)
+    @card = @deck.cards.new(card_params)
 
     if @card.save
       render json: @card, status: :created, location: @card
@@ -41,11 +43,16 @@ class CardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card
-      @card = Card.find(params[:id])
+      @card = @deck.cards.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def card_params
       params.require(:card).permit(:question, :deck_id)
     end
+
+    def load_deck
+      @deck = Deck.find(params[:deck_id])
+    end
+
 end
