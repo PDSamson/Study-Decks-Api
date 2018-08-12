@@ -1,6 +1,4 @@
-API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/decks"
-curl "${API}${URL_PATH}" \
+curl "http://localhost:4741/decks" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
@@ -8,8 +6,7 @@ curl "${API}${URL_PATH}" \
   --data '{
     "deck": {
       "title": "'"${TITLE}"'",
-      "answer": "'"${ANSWER}"'",
-      "user_id": "'"${USERID}"'"
+      "answer": "'"${ANSWER}"'"
     }
   }'
 

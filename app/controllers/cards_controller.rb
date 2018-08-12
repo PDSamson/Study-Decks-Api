@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :update, :destroy]
 
-  before_filter :load_deck
+  before_action :load_deck
 
   # GET /cards
   def index
@@ -20,10 +20,10 @@ class CardsController < ApplicationController
     @card = @deck.cards.new(card_params)
 
     if @card.save
-      render json: @card, status: :created, location: @card
+      render json: @card, status: :created, location: redirect_to @card
     else
       render json: @card.errors, status: :unprocessable_entity
-    end
+      end
   end
 
   # PATCH/PUT /cards/1

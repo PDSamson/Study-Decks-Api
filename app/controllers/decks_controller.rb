@@ -1,4 +1,4 @@
-class DecksController < ApplicationController
+class DecksController < OpenReadController
   before_action :set_deck, only: [:show, :update, :destroy]
 
   # GET /decks
@@ -46,6 +46,6 @@ class DecksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def deck_params
-      params.require(:deck).permit(:title, :answer, :user_id)
+      params.require(:deck).permit(:title, :answer)
     end
 end
