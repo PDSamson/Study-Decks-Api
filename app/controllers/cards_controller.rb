@@ -1,7 +1,6 @@
 class CardsController < ApplicationController
-  before_action :set_card, only: [:show, :update, :destroy]
-
   before_action :load_deck
+  before_action :set_card, only: [:show, :update, :destroy]
 
   # GET /cards
   def index
@@ -19,11 +18,18 @@ class CardsController < ApplicationController
   def create
     @card = @deck.cards.new(card_params)
 
+    # if @card.save
+    #   render json: @card, status: :created, location: @card
+    # else
+    #   render json: @card.errors, status: :unprocessable_entity
+    #   end
+
     if @card.save
-      render json: @card, status: :created, location: redirect_to @card
+      ## update the url passed to redirect_to as below
+      redirect_to deck_card_url(@deck, @card)
     else
       render json: @card.errors, status: :unprocessable_entity
-      end
+    end
   end
 
   # PATCH/PUT /cards/1
@@ -48,7 +54,7 @@ class CardsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def card_params
-      params.require(:card).permit(:question, :deck_id)
+      params.require(:card).permit(:question, :answer, :deck_id)
     end
 
     def load_deck

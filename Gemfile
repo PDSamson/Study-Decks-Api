@@ -9,6 +9,7 @@ gem 'pg'
 gem 'puma', '~> 3.0'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1.3'
+gem 'responders', '~> 2.3'
 
 group :development, :test do
   gem 'byebug', platform: :mri

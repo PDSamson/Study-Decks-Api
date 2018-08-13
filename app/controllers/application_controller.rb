@@ -1,8 +1,14 @@
+require "application_responder"
+
 # frozen_string_literal: true
 
 # Do not inherit from this class unless you know what you're doing
 # See ProtectedController and OpenReadController
 class ApplicationController < ActionController::API
+  include ActionController::MimeResponds
+  self.responder = ApplicationResponder
+  respond_to :html
+
   # Force to wants JSON for API
   before_action :api_request_settings
   def api_request_settings
